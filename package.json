@@ -1,0 +1,31 @@
+{
+  "name": "pied-piper",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@1inch/limit-order-protocol": "1.2.1",
+    "@reduxjs/toolkit": "1.6.0",
+    "@types/diff": "^5.0.0",
+    "@types/react-dom": "17.0.7",
+    "@types/styled-components": "5.1.10",
+    "next": "10.2.3",
+    "react": "17.0.2",
+    "react-dom": "17.0.2",
+    "react-redux": "7.2.4",
+    "redux": "4.1.0",
+    "redux-devtools-extension": "2.13.9",
+    "redux-thunk": "2.3.0",
+    "styled-components": "5.3.0",
+    "web3": "2.0.0-alpha.1",
+    "yarn": "1.22.10"
+  },
+  "devDependencies": {
+    "typescript": "4.3.2"
+  }
+}
