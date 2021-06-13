@@ -56,7 +56,7 @@ export const Step1: React.FC = () => {
                                          //     dispatch(setReceiveToken(undefined))
                                          dispatch(setExchangeToken(token))
                                      }}/>
-                <PaddedCurrencyField title={"Receive"} selectedToken={receive} excludeToken={exchange}
+                <PaddedCurrencyField title={"Receive"} selectedToken={receive}
                                      onSelectToken={(token) => dispatch(setReceiveToken(token))}/>
             </CurrencyFields>
         </Container>
