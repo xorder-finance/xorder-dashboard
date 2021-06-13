@@ -3,7 +3,7 @@ import * as React from "react";
 import {useState} from "react";
 import {TitleSecondary} from "../../../common/text";
 import {useAppSelector} from "../../../../state/hooks";
-import {submitOrder} from "../../../tools/1inch";
+import {submitOrder, fillOrder} from "../../../tools/1inch";
 
 const Container = styled.div`
   max-width: 700px;
@@ -115,7 +115,10 @@ export const Step2: React.FC = () => {
                     const exchangeAmount = web3.utils.toWei(exchangeAmountString)
                     const receiveAmount = web3.utils.toWei(receiveAmountString)
 
-                    await submitOrder(web3State, tokenState, exchangeAmount, receiveAmount)
+                    console.log("Test");
+
+                    await fillOrder(web3State, 1000, 0, 0)
+//                     await submitOrder(web3State, tokenState, exchangeAmount, receiveAmount)
                 } catch (e) {
                     console.error(e)
                 }
