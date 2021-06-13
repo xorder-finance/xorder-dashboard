@@ -22,7 +22,7 @@ const makerAddresses = {
 }
 
 
-const backendAddress = ""
+const backendAddress = "http://localhost:3001"
 
 
 export const submitOrder = async (web3State: Web3StateSlice, tokenState: TokenSlice, makerAmount: string, takerAmount: string) => {
@@ -58,21 +58,14 @@ export const submitOrder = async (web3State: Web3StateSlice, tokenState: TokenSl
     }
 
     const newHash = web3.utils.keccak256(JSON.stringify({...limitOrderStruct, random: Math.random()}))
+    const newLimitOrder = {...limitOrderStruct, interaction: newHash}
 
-    const limitOrder = limitOrderBuilder.buildLimitOrder(
-        {...limitOrderStruct, interaction: newHash});
+    const limitOrder = limitOrderBuilder.buildLimitOrder(newLimitOrder);
 
-    // const limitOrderTypedData = limitOrderBuilder.buildLimitOrderTypedData(
-    //     limitOrder
-    // );
-    // const limitOrderSignature = limitOrderBuilder.buildOrderSignature(
-    //     walletAddress,
-    //     limitOrderTypedData
-    // );
-    // const limitOrderHash = limitOrderBuilder.buildLimitOrderHash(
-    //     limitOrderTypedData
-    // );
+    console.log(newLimitOrder)
+    console.log(limitOrder)
 
+    await fetch(backendAddress + "/create?" + "data=" + JSON.stringify({limitOrder, limitOrderStruct: newLimitOrder}))
 
     // to backend
     const makerAssetContract = new web3.eth.Contract(erc20Abi, makerAssetAddress)

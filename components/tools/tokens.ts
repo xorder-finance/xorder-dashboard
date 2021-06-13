@@ -35,6 +35,18 @@ export const tokens: Token[] = [
             5: "",
             42: "0x4f96fe3b7a6cf9725f59d353f723c1bdb64ca6aa"
         }
+    },
+    {
+        name: "USDT",
+        decimals: 18,
+        icon: "img/usdt.svg",
+        addresses: {
+            1: "",
+            3: "",
+            4: "",
+            5: "",
+            42: "0xf3e0d7bf58c5d455d31ef1c2d5375904df525105"
+        }
     }
 ]
 
