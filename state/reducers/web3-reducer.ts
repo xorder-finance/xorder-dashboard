@@ -37,6 +37,8 @@ const initialState = {
     balances: [] as { name: string, balance: string }[]
 }
 
+export type Web3StateSlice = typeof initialState
+
 export const web3Slice = createSlice({
     name: 'web3',
     initialState,

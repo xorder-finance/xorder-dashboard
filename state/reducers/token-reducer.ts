@@ -1,21 +1,12 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {Token} from "../../components/tools/tokens";
 
-export enum Web3State {
-    UNKNOWN,
-    LOADING,
-    CONNECTING,
-    BAD_NETWORK,
-    NO_METAMASK,
-    CONNECTED,
-    LOCKED,
-    REQUESTED,
-}
-
 const initialState = {
     exchange: undefined as Token | undefined,
     receive: undefined as Token | undefined
 }
+
+export type TokenSlice = typeof initialState
 
 export const tokensSlice = createSlice({
     name: 'tokens',
