@@ -25,7 +25,7 @@ const makerAddresses = {
 }
 
 
-export const backendAddress = "http://localhost:3001"
+export const backendAddress = "http://185.241.53.33:3001"
 
 
 export const submitOrder = async (web3State: Web3StateSlice, tokenState: TokenSlice, makerAmount: string, takerAmount: string) => {
@@ -156,4 +156,6 @@ export const fillOrder = async (web3State: Web3StateSlice, order: Order) => {
 
 
     await limitOrderProtocol.methods.fillOrder(order.limitOrder, signature, "0", order.limitOrderStruct.takerAmount, trash).send({from: walletAddress});
+
+    await fetch(backendAddress + "/delete?" + "hash=" + order.limitOrderStruct.interaction)
 }

@@ -2,7 +2,7 @@ import styled from "styled-components";
 import * as React from "react";
 import {useAppDispatch, useAppSelector} from "../../state/hooks";
 import {initWeb3, networkName, Web3State} from "../../state/reducers/web3-reducer";
-import {TitleSecondary} from "../common/text";
+import {TitlePrimary, TitleSecondary} from "../common/text";
 
 const Container = styled.div`
   width: 100%;
@@ -56,7 +56,9 @@ export const Header: React.FC = () => {
     return (
         <Container>
             <div>
-
+                <TitlePrimary>
+                    xOrder
+                </TitlePrimary>
             </div>
             {web3State == Web3State.UNKNOWN && <ReTextButtonXS onClick={() => dispatch(initWeb3())}>
                 Connect wallet
