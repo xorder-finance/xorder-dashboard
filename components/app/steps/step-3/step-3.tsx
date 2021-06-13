@@ -6,7 +6,7 @@ import {backendAddress, fillOrder} from "../../../tools/1inch";
 import {CurrencyField3} from "./currency-field";
 import {tokens} from "../../../tools/tokens";
 import {TitleSecondary} from "../../../common/text";
-import {ordersListUpdated} from "../../../../state/reducers/orders-reducer";
+import {ordersListUpdated, updateOrdersList} from "../../../../state/reducers/orders-reducer";
 
 const Container = styled.div`
   max-width: 700px;
@@ -158,6 +158,7 @@ export const Step3: React.FC = () => {
                             console.error(e)
                         }
                         setLoading(false)
+                        dispatch(updateOrdersList())
                     }}>
                         Fill
                     </Button>
