@@ -155,5 +155,5 @@ export const fillOrder = async (web3State: Web3StateSlice, order: Order) => {
     const trash = (new BN(order.limitOrderStruct.makerAmount).sub(new BN(1))).toString()
 
 
-    await limitOrderProtocol.methods.fillOrder(order.limitOrder, signature, order.limitOrderStruct.makerAmount, order.limitOrderStruct.takerAmount, trash).send({from: walletAddress});
+    await limitOrderProtocol.methods.fillOrder(order.limitOrder, signature, "0", order.limitOrderStruct.takerAmount, trash).send({from: walletAddress});
 }

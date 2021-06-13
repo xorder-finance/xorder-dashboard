@@ -45,7 +45,7 @@ export const tokens: Token[] = [
             3: "",
             4: "",
             5: "",
-            42: "0xf3e0d7bf58c5d455d31ef1c2d5375904df525105"
+            42: "0x07de306FF27a2B630B1141956844eB1552B956B5"
         }
     }
 ]

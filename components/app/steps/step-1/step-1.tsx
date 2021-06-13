@@ -52,8 +52,8 @@ export const Step1: React.FC = () => {
             <CurrencyFields>
                 <PaddedCurrencyField title={"Exchange"} selectedToken={exchange}
                                      onSelectToken={(token) => {
-                                         if (receive && receive.name == token.name)
-                                             dispatch(setReceiveToken(undefined))
+                                         // if (receive && receive.name == token.name)
+                                         //     dispatch(setReceiveToken(undefined))
                                          dispatch(setExchangeToken(token))
                                      }}/>
                 <PaddedCurrencyField title={"Receive"} selectedToken={receive} excludeToken={exchange}
