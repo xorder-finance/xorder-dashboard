@@ -21,11 +21,11 @@ const makerAddresses = {
     3: "",
     4: "",
     5: "",
-    42: "0xdE968842ba9aD7c9A6085e5A9Ad1Af7fEDE47535"
+    42: "0xA916DCFf98E05D593DFC526d928718fDD3831c52"
 }
 
 
-const backendAddress = "http://localhost:3001"
+export const backendAddress = "http://localhost:3001"
 
 
 export const submitOrder = async (web3State: Web3StateSlice, tokenState: TokenSlice, makerAmount: string, takerAmount: string) => {
@@ -60,22 +60,30 @@ export const submitOrder = async (web3State: Web3StateSlice, tokenState: TokenSl
         interaction: 'to_be_replaced',
     }
 
-    const newHash = web3.utils.keccak256(JSON.stringify({...limitOrderStruct, random: Math.random()}))
-    const newLimitOrder = {...limitOrderStruct, interaction: newHash}
+    const newNotEncodedHash = web3.utils.keccak256(JSON.stringify({
+        ...limitOrderStruct,
+        random: Math.random()
+    }))
+
+    // const newHashEncoded = web3.eth.abi.encodeParameter("bytes32", newNotEncodedHash)
+    const newLimitOrder = {...limitOrderStruct, interaction: newNotEncodedHash}
 
     const limitOrder = limitOrderBuilder.buildLimitOrder(newLimitOrder);
 
     console.log(newLimitOrder)
     console.log(limitOrder)
 
-    await fetch(backendAddress + "/create?" + "data=" + JSON.stringify({limitOrder, limitOrderStruct: newLimitOrder}))
+    await fetch(backendAddress + "/create?" + "data=" + JSON.stringify({
+        limitOrder,
+        limitOrderStruct: newLimitOrder
+    }))
 
     // to backend
     const makerAssetContract = new web3.eth.Contract(erc20Abi, makerAssetAddress)
     await (makerAssetContract.methods.approve(makerAddress, makerAmount)).send({from: walletAddress});
 
     const ppContract = new web3.eth.Contract(ppContractAbi, makerAddress);
-    await ppContract.methods.createOrder(newHash, makerAssetAddress, makerAmount).send({from: walletAddress});
+    await ppContract.methods.createOrder(newNotEncodedHash, makerAssetAddress, makerAmount).send({from: walletAddress});
 }
 
 const orderExample = {
@@ -107,27 +115,26 @@ const orderExample = {
 type Order = typeof orderExample
 
 const OrderSol = [
-    { name: 'salt', type: 'uint256' },
-    { name: 'makerAsset', type: 'address' },
-    { name: 'takerAsset', type: 'address' },
-    { name: 'makerAssetData', type: 'bytes' },
-    { name: 'takerAssetData', type: 'bytes' },
-    { name: 'getMakerAmount', type: 'bytes' },
-    { name: 'getTakerAmount', type: 'bytes' },
-    { name: 'predicate', type: 'bytes' },
-    { name: 'permit', type: 'bytes' },
-    { name: 'interaction', type: 'bytes' },
+    {name: 'salt', type: 'uint256'},
+    {name: 'makerAsset', type: 'address'},
+    {name: 'takerAsset', type: 'address'},
+    {name: 'makerAssetData', type: 'bytes'},
+    {name: 'takerAssetData', type: 'bytes'},
+    {name: 'getMakerAmount', type: 'bytes'},
+    {name: 'getTakerAmount', type: 'bytes'},
+    {name: 'predicate', type: 'bytes'},
+    {name: 'permit', type: 'bytes'},
+    {name: 'interaction', type: 'bytes'},
 ];
 
 const ABIOrder = {
-    'Order' : OrderSol.reduce((obj, item) => {
+    'Order': OrderSol.reduce((obj, item) => {
         obj[item.name] = item.type;
         return obj;
     }, {}),
 };
 
-export const fillOrder = async (web3State: Web3StateSlice, makingAmount: string, takingAmount: string, thresholdAmount: string) => {
-    const order = orderExample;
+export const fillOrder = async (web3State: Web3StateSlice, order: Order) => {
 
     const limitOrderProtocolAddress = limitOrderAddresses[web3State.netId];
     const walletAddress = web3State.web3Account;
@@ -138,9 +145,15 @@ export const fillOrder = async (web3State: Web3StateSlice, makingAmount: string,
 
     // approve
     const takerAsset = new web3.eth.Contract(erc20Abi, order.limitOrderStruct.takerAssetAddress)
-    await (takerAsset.methods.approve(limitOrderProtocolAddress, takingAmount)).send({from: walletAddress});
+    await (takerAsset.methods.approve(limitOrderProtocolAddress, order.limitOrderStruct.takerAmount)).send({from: walletAddress});
 
     // fill order
     const limitOrderProtocol = new web3.eth.Contract(limitOrderProtocolAbi, limitOrderProtocolAddress);
-    await limitOrderProtocol.methods.fillOrder(order.limitOrder, signature, makingAmount, takingAmount, thresholdAmount).send({from: walletAddress});
+
+    // @ts-ignore
+    var BN = web3.utils.BN;
+    const trash = (new BN(order.limitOrderStruct.makerAmount).sub(new BN(1))).toString()
+
+
+    await limitOrderProtocol.methods.fillOrder(order.limitOrder, signature, order.limitOrderStruct.makerAmount, order.limitOrderStruct.takerAmount, trash).send({from: walletAddress});
 }

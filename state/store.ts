@@ -2,6 +2,7 @@ import {web3Slice} from "./reducers/web3-reducer";
 
 import {Action, configureStore, getDefaultMiddleware, ThunkAction} from '@reduxjs/toolkit';
 import {tokensSlice} from "./reducers/token-reducer";
+import {ordersSlice} from "./reducers/orders-reducer";
 
 export const store = configureStore({
     middleware: getDefaultMiddleware({
@@ -9,7 +10,8 @@ export const store = configureStore({
     }),
     reducer: {
         web3: web3Slice.reducer,
-        tokens: tokensSlice.reducer
+        tokens: tokensSlice.reducer,
+        orders: ordersSlice.reducer
     },
 });
 

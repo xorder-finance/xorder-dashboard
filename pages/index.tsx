@@ -7,6 +7,7 @@ import {useAppDispatch, useAppSelector} from "../state/hooks";
 import {initWeb3, networkName, Web3State} from "../state/reducers/web3-reducer";
 import * as React from "react";
 import {TitleSecondary} from "../components/common/text";
+import {Step3} from "../components/app/steps/step-3/step-3";
 
 const Container = styled.div`
   min-width: 200px;
@@ -109,6 +110,7 @@ export default function App() {
             <Step1/>
             {error ? (showError && error) : <>
                 <Step2/>
+                <Step3/>
             </>}
         </Container>
     )

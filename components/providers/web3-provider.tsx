@@ -5,6 +5,7 @@ import Web3 from "web3";
 import {update, Web3State} from "../../state/reducers/web3-reducer";
 import {tokens, workingNetworkIds} from "../tools/tokens";
 import {AbiItem} from "web3-utils";
+import {updateOrdersList} from "../../state/reducers/orders-reducer";
 
 
 const NO_METAMASK_ERROR = "NoMetamaskError";
@@ -78,6 +79,10 @@ const initWeb3 = async (dispatch: ReturnType<typeof useAppDispatch>) => {
                 netId,
                 balances
             }))
+            setTimeout(() => {
+                    dispatch(updateOrdersList())
+                }, 0
+            )
         } else {
             dispatch(update({
                 web3: web3,

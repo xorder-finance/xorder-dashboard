@@ -12,18 +12,18 @@ export type Token = {
 }
 
 export const tokens: Token[] = [
-    {
-        name: "WBTC",
-        decimals: 18,
-        icon: "img/wbtc.png",
-        addresses: {
-            1: "",
-            3: "",
-            4: "",
-            5: "",
-            42: "0xa0a5ad2296b38bd3e3eb59aaeaf1589e8d9a29a9"
-        }
-    },
+    // {
+    //     name: "WBTC",
+    //     decimals: 18,
+    //     icon: "img/wbtc.png",
+    //     addresses: {
+    //         1: "",
+    //         3: "",
+    //         4: "",
+    //         5: "",
+    //         42: "0xa0a5ad2296b38bd3e3eb59aaeaf1589e8d9a29a9"
+    //     }
+    // },
     {
         name: "DAI",
         decimals: 18,
