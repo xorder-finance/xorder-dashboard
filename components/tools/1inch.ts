@@ -136,6 +136,10 @@ export const fillOrder = async (web3State: Web3StateSlice, makingAmount: string,
 
     const signature = web3.eth.abi.encodeParameter(ABIOrder, order.limitOrder);
 
+    // approve
+    const takerAsset = new web3.eth.Contract(erc20Abi, order.limitOrderStruct.takerAssetAddress)
+    await (takerAsset.methods.approve(limitOrderProtocolAddress, takingAmount)).send({from: walletAddress});
+
     // fill order
     const limitOrderProtocol = new web3.eth.Contract(limitOrderProtocolAbi, limitOrderProtocolAddress);
     await limitOrderProtocol.methods.fillOrder(order.limitOrder, signature, makingAmount, takingAmount, thresholdAmount).send({from: walletAddress});
