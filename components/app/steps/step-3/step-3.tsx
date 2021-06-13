@@ -142,13 +142,14 @@ export const Step3: React.FC = () => {
                 if (!selectedToken1 || !selectedToken2)
                     return null
 
+                // @ts-ignore
                 return <CurrencyFields key={order.limitOrderStruct.interaction}>
                     <PaddedCurrencyField
                         selectedToken={selectedToken1}
-                        amount={web3State.web3.utils.fromWei(order.limitOrderStruct.makerAmount)}/>
+                        amount={web3State.web3.utils.fromWei(order.limitOrderStruct.makerAmount, selectedToken1.decimals)}/>
                     <PaddedCurrencyField
                         selectedToken={selectedToken2}
-                        amount={web3State.web3.utils.fromWei(order.limitOrderStruct.takerAmount)}/>
+                        amount={web3State.web3.utils.fromWei(order.limitOrderStruct.takerAmount, selectedToken2.decimals)}/>
                     <Button disabled={loading} onClick={async () => {
                         setLoading(true)
                         try {

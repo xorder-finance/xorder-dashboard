@@ -1,7 +1,7 @@
 export type Token = {
     name: string,
     icon: string,
-    decimals: number,
+    decimals: string,
     addresses: {
         1: string,
         3: string,
@@ -26,7 +26,7 @@ export const tokens: Token[] = [
     // },
     {
         name: "DAI",
-        decimals: 18,
+        decimals: "ether",
         icon: "img/dai.png",
         addresses: {
             1: "",
@@ -38,7 +38,7 @@ export const tokens: Token[] = [
     },
     {
         name: "USDT",
-        decimals: 18,
+        decimals: "mwei",
         icon: "img/usdt.svg",
         addresses: {
             1: "",

@@ -116,10 +116,8 @@ export const Step2: React.FC = () => {
                 setButtonEnabled(false)
                 try {
                     const web3 = web3State.web3
-                    const exchangeAmount = web3.utils.toWei(exchangeAmountString)
-                    const receiveAmount = web3.utils.toWei(receiveAmountString)
-
-                    console.log("Test");
+                    const exchangeAmount = web3.utils.toWei(exchangeAmountString, exchange.decimals)
+                    const receiveAmount = web3.utils.toWei(receiveAmountString, receive.decimals)
 
                     // await fillOrder(web3State, 1000, 0, 0)
                     await submitOrder(web3State, tokenState, exchangeAmount, receiveAmount)
